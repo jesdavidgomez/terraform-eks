@@ -1,0 +1,33 @@
+alertmanager:
+  alertmanagerSpec:
+    storage: 
+      volumeClaimTemplate:
+        metadata:
+          name: data
+        spec:
+          storageClassName: gp2
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+grafana:
+  grafana.ini:
+    auth.anonymous:
+      enabled: true
+  persistence:
+    enabled: true
+    storageClassName: gp2
+    accessModes:
+      - ReadWriteOnce
+    size: 3Gi
+prometheus:
+  prometheusSpec:
+    retention: 90d
+    storageSpec:
+     volumeClaimTemplate:
+       spec:
+         storageClassName: gp2
+         accessModes: ["ReadWriteOnce"]
+         resources:
+           requests:
+             storage: 30Gi
